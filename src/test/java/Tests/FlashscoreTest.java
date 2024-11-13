@@ -49,4 +49,27 @@ public class FlashscoreTest extends BaseClass {
         flashscoreSportPage.compare();
         waitImplicit(10000);
     }
+    @Test(groups = Groups.PC, priority = 2, description = "Clicking on random spots and checking status of finished games")
+    public void secondTask() {
+        //Objects
+        NavigationPage navigationPage = new NavigationPage();
+        FlashscoreComPage flashscoreComPage = new FlashscoreComPage();
+        FlashscoreSportPage flashscoreSportPage = new FlashscoreSportPage();
+
+        //Actions
+        Reporter.log("Navigate to https://www.flashscore.com/ page", true);
+        navigationPage.navigateToPage(URL_BASE);
+        waitImplicit(5000);
+
+        Reporter.log("Navigate to I Accept button on the banner and click on it", true);
+        flashscoreComPage.clickOnAcceptBanner();
+        waitImplicit(5000);
+
+        Reporter.log("Navigating to More button and clicking on it", true);
+        //flashscoreComPage.clickOnMoreButton();
+        waitImplicit(5000);
+
+        //flashscoreComPage.clickOnElementsFormSortedList();
+        waitImplicit(5000);
+    }
 }
