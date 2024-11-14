@@ -110,6 +110,4 @@ public class FlashscoreSportPage extends BaseClass {
                 System.out.println("The match is tied: " + "Home Team: " + participantAtHomeList().get(i).getText() + " Away Team: " + participantAwayList().get(i).getText());
         }
     }
-
-
 }

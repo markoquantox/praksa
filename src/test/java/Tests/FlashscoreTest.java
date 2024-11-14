@@ -65,11 +65,12 @@ public class FlashscoreTest extends BaseClass {
         flashscoreComPage.clickOnAcceptBanner();
         waitImplicit(5000);
 
-        Reporter.log("Navigating to More button and clicking on it", true);
-        //flashscoreComPage.clickOnMoreButton();
+        Reporter.log("Navigating to More button, getting the list of matches with more then 5 matches in it,\n Getting true the list of pages and clicking on random favorite element each of those pages", true);
+        flashscoreComPage.clickOnElementsFormSortedListAndFavoriteMatches();
         waitImplicit(5000);
 
-        //flashscoreComPage.clickOnElementsFormSortedList();
-        waitImplicit(5000);
+        Reporter.log("Asserting if number of matches in the favorite bubble is same as a number of elements we added",true);
+        flashscoreComPage.benchmarkingOfFavoriteMatches();
+        waitImplicit(3000);
     }
 }
