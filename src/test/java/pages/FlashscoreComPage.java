@@ -1,10 +1,12 @@
 package pages;
 
+
 import org.example.Utils.BaseClass;
 import org.example.Utils.NavigationPage;
 import org.example.Utils.WebElementLocator;
 import org.example.Utils.WebElementLocatorFactory;
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
@@ -49,7 +51,7 @@ public class FlashscoreComPage extends BaseClass {
     }
 
     /**
-     * Function clicking on more button(Sports), so we can interact with them
+     * Function clicking on more button (Sports), so we can interact with them
      */
 
     public void clickOnMoreButton() {
@@ -94,16 +96,29 @@ public class FlashscoreComPage extends BaseClass {
             }
         } return list1;
     }
-
+    /**
+     * Creating the empty list, so we can add team names
+     */
+    List<String> namesOfParticipant=new ArrayList<>();
     /**
      * Making the list of all matches elements on the current page and clicking on random favorite button of an element
+     * Also adding elements to namesOfParticipant list, so we can compare it later
      */
     public void clickOnRandomFavorieMatch(){
-        List<WebElement> a =driver.findElements(By.xpath("//button[@data-state='closed']"));
+        List<WebElement> a =driver.findElements(By.xpath("//div[contains(@class,'event__match--withRowLink')]"));
+        List<WebElement> d=driver.findElements(By.xpath("//button[@data-state]"));
         waitImplicit(1000);
-        a.get(randomNumber(a.size())).click();
-    }
+        int h=randomNumber(a.size());
+        WebElement x=a.get(h);
+        scrollToElementCenter(x);
+        List<WebElement> f=x.findElements(By.xpath("./div[contains(@class,'event__participant')]"));
+        for (WebElement element: f) {
+            namesOfParticipant.add(element.getText());
+            System.out.println(element.getText());
 
+        }
+        d.get(h).click();
+    }
     /**
      * Integrating previous methods, so we can navigate to the pages that
      * have more than 5 matches in them, and clicking on random favorite button on those pages
@@ -119,9 +134,9 @@ public class FlashscoreComPage extends BaseClass {
     }
 
     /**
-     * Asserting if number of elements in favorite element
+     * Asserting if number of elements in a favorite element
      * is equal to the number of elements in the sorted list.
-     * Checking like that if the number of elements in Favorites element is equal to the number of elements we added
+     * Checking like that if the number of elements in a Favorite element is equal to the number of elements we added
      */
     public void benchmarkingOfFavoriteMatches(){
         driver.navigate().back();
@@ -129,5 +144,31 @@ public class FlashscoreComPage extends BaseClass {
         Assert.assertEquals(sortedElements().size(), parseInt(x.getAttribute("data-sport-count")),"The number of items in the bubble is not equal to the number of elements we added!!! ");
         scrollToElementCenter(x);
         waitImplicit(1000);
+        x.click();
+        waitImplicit(3000);
+        popUpExit();
+        waitImplicit(3000);
+        Assert.assertTrue(eventParticipanteNames().containsAll(namesOfParticipant),"Lists don't match");
+    }
+    public void popUpExit(){
+        WebElement a=driver.findElement(By.cssSelector(".close.modal__closeButton"));
+        a.click();
+    }
+    public List<String> eventParticipanteNames(){
+        List<String> a= new ArrayList<>();
+        List<WebElement>x=driver.findElements(By.xpath("//div[contains(@class,'event__match--withRowLink')]/div[contains(@class,'event__participant')]"));
+        for (WebElement element: x){
+            try {
+                a.add(element.getText());
+            } catch (StaleElementReferenceException ignored){
+            }
+        } return a;
     }
 }
+
+
+
+//.event__match
+////button[@data-state='closed']
+//event__match--withRowLink
+//wcl-simpleText_Asp-0

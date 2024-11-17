@@ -8,6 +8,8 @@ import org.testng.annotations.Test;
 import pages.FlashscoreComPage;
 import pages.FlashscoreSportPage;
 
+import java.util.Collections;
+
 public class FlashscoreTest extends BaseClass {
 
     //Parms
@@ -72,5 +74,8 @@ public class FlashscoreTest extends BaseClass {
         Reporter.log("Asserting if number of matches in the favorite bubble is same as a number of elements we added",true);
         flashscoreComPage.benchmarkingOfFavoriteMatches();
         waitImplicit(3000);
+
+
+
     }
 }
