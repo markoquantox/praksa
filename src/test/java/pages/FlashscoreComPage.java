@@ -9,6 +9,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.Reporter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,7 +79,7 @@ public class FlashscoreComPage extends BaseClass {
     }
 
     /**
-     * Function for clicking on random element, depends on random number function
+     * Function for clicking on a random element, depends on random number function
      */
     public void clickRandomSport() {
         sports().get(randomNumber(sportsListLenght())).click();
@@ -97,7 +98,7 @@ public class FlashscoreComPage extends BaseClass {
         } return list1;
     }
     /**
-     * Creating the empty list, so we can add team names
+     * Creating the empty list, so we can add names to it
      */
     List<String> namesOfParticipant=new ArrayList<>();
     /**
@@ -114,8 +115,6 @@ public class FlashscoreComPage extends BaseClass {
         List<WebElement> f=x.findElements(By.xpath("./div[contains(@class,'event__participant')]"));
         for (WebElement element: f) {
             namesOfParticipant.add(element.getText());
-            System.out.println(element.getText());
-
         }
         d.get(h).click();
     }
@@ -141,19 +140,33 @@ public class FlashscoreComPage extends BaseClass {
     public void benchmarkingOfFavoriteMatches(){
         driver.navigate().back();
         WebElement x=driver.findElement(By.xpath("//a[@class='menuTop__item menuTop__myfs']"));
+        Reporter.log("Asserting if number of elements are the same line kin the favorite element/bubble",true);
         Assert.assertEquals(sortedElements().size(), parseInt(x.getAttribute("data-sport-count")),"The number of items in the bubble is not equal to the number of elements we added!!! ");
+        Reporter.log("Scrolling to the element",true);
         scrollToElementCenter(x);
         waitImplicit(1000);
+        Reporter.log("Clicking on/adding favorite/star element",true);
         x.click();
         waitImplicit(3000);
+        Reporter.log("Exiting add",true);
         popUpExit();
         waitImplicit(3000);
+        Reporter.log("Asserting if names from added elements, are contained in a list of names on this page",true);
         Assert.assertTrue(eventParticipanteNames().containsAll(namesOfParticipant),"Lists don't match");
     }
+
+    /**
+     * Function for finding an add/exit element and clicking on it
+     */
     public void popUpExit(){
         WebElement a=driver.findElement(By.cssSelector(".close.modal__closeButton"));
         a.click();
     }
+
+    /**
+     * Function for finding array of elements that contains name of participants
+     * @return List of name elements 
+     */
     public List<String> eventParticipanteNames(){
         List<String> a= new ArrayList<>();
         List<WebElement>x=driver.findElements(By.xpath("//div[contains(@class,'event__match--withRowLink')]/div[contains(@class,'event__participant')]"));
@@ -165,10 +178,3 @@ public class FlashscoreComPage extends BaseClass {
         } return a;
     }
 }
-
-
-
-//.event__match
-////button[@data-state='closed']
-//event__match--withRowLink
-//wcl-simpleText_Asp-0

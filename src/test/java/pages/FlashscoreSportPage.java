@@ -63,7 +63,7 @@ public class FlashscoreSportPage extends BaseClass {
     }
 
     /**
-     * Function/Assert for checking if finished game list is empty
+     * Function/Assert for checking if a finished game list is empty
      */
     public void finishedMatchesListEmpty() {
         Assert.assertFalse(finishedMatchesList().isEmpty(), "There is no finished matches");

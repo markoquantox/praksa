@@ -56,7 +56,6 @@ public class FlashscoreTest extends BaseClass {
         //Objects
         NavigationPage navigationPage = new NavigationPage();
         FlashscoreComPage flashscoreComPage = new FlashscoreComPage();
-        FlashscoreSportPage flashscoreSportPage = new FlashscoreSportPage();
 
         //Actions
         Reporter.log("Navigate to https://www.flashscore.com/ page", true);
@@ -71,11 +70,8 @@ public class FlashscoreTest extends BaseClass {
         flashscoreComPage.clickOnElementsFormSortedListAndFavoriteMatches();
         waitImplicit(5000);
 
-        Reporter.log("Asserting if number of matches in the favorite bubble is same as a number of elements we added",true);
+        Reporter.log("Benchmarking: ",true);
         flashscoreComPage.benchmarkingOfFavoriteMatches();
         waitImplicit(3000);
-
-
-
     }
 }
