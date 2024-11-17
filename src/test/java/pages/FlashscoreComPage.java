@@ -153,6 +153,7 @@ public class FlashscoreComPage extends BaseClass {
         waitImplicit(3000);
         Reporter.log("Asserting if names from added elements, are contained in a list of names on this page",true);
         Assert.assertTrue(eventParticipanteNames().containsAll(namesOfParticipant),"Lists don't match");
+        waitImplicit(3000);
     }
 
     /**
