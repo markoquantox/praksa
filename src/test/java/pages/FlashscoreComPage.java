@@ -90,6 +90,8 @@ public class FlashscoreComPage extends BaseClass {
      * @return List with sorted elements
      */
     public List<String> sortedElements() {
+        clickOnMoreButton();
+        waitImplicit(2000);
         List<String> list1 = new ArrayList<>();
         for (WebElement element : listValuesBubbles()) {
             if (parseInt(element.getAttribute("data-sport-count")) >= 5) {
@@ -160,10 +162,12 @@ public class FlashscoreComPage extends BaseClass {
      * Function for finding an add/exit element and clicking on it
      */
     public void popUpExit(){
-        WebElement a=driver.findElement(By.cssSelector(".close.modal__closeButton"));
-        a.click();
-    }
-
+        try{
+            WebElement a=driver.findElement(By.cssSelector(".close.modal__closeButton"));
+            a.click();
+        }catch (org.openqa.selenium.NoSuchElementException ignored){
+        }
+        }
     /**
      * Function for finding array of elements that contains name of participants
      * @return List of name elements 

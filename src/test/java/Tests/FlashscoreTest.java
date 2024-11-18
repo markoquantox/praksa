@@ -8,8 +8,6 @@ import org.testng.annotations.Test;
 import pages.FlashscoreComPage;
 import pages.FlashscoreSportPage;
 
-import java.util.Collections;
-
 public class FlashscoreTest extends BaseClass {
 
     //Parms
