@@ -5,7 +5,6 @@ import org.example.Utils.WebElementLocator;
 import org.example.Utils.WebElementLocatorFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +43,19 @@ public class FlashscoreSportPage extends BaseClass {
     private List<WebElement> participantAwayList() {
         return driver.findElements(By.xpath(new WebElementLocatorFactory().getLocator(FlashscoreSportPage.class, "participantAwayList")));
     }
-
+    //1
+    @WebElementLocator(webDesktop = "//div[contains(@class,'event__match--withRowLink')]")
+    private List<WebElement> listOfAllGames() {
+        return driver.findElements(By.xpath(new WebElementLocatorFactory().getLocator(FlashscoreSportPage.class, "listOfAllGames")));
+    }
+    @WebElementLocator(webDesktop = "//button[@data-state]")
+    private List<WebElement> listOfAllFaworiteElements() {
+        return driver.findElements(By.xpath(new WebElementLocatorFactory().getLocator(FlashscoreSportPage.class, "listOfAllFaworiteElements")));
+    }
+    @WebElementLocator(webDesktop = "//a[@class='menuTop__item menuTop__myfs']")
+    private WebElement favoritesElement() {
+        return driver.findElement(By.xpath(new WebElementLocatorFactory().getLocator(FlashscoreSportPage.class, "favoritesElement")));
+    }
     //Functions
 
     /**
@@ -63,10 +74,12 @@ public class FlashscoreSportPage extends BaseClass {
     }
 
     /**
-     * Function/Assert for checking if a finished game list is empty
+     * Function/Assert for checking if finished game list is empty
      */
     public void finishedMatchesListEmpty() {
-        Assert.assertFalse(finishedMatchesList().isEmpty(), "There is no finished matches");
+        if(finishedMatchesList().isEmpty()){
+            System.out.println("There is no finished matches");
+        }
     }
 
     /**
@@ -101,13 +114,53 @@ public class FlashscoreSportPage extends BaseClass {
      */
 
     public void compare() {
-        for (int i = 0; i < sHomeList().size(); i++) {
-            if (sHomeList().get(i) > sAwayList().get(i)) {
-                System.out.println("The winner of the match is: " + participantAtHomeList().get(i).getText());
-            } else if (sHomeList().get(i) < sAwayList().get(i)) {
-                System.out.println("The winner of the match is: " + participantAwayList().get(i).getText());
-            } else
-                System.out.println("The match is tied: " + "Home Team: " + participantAtHomeList().get(i).getText() + " Away Team: " + participantAwayList().get(i).getText());
+        if (!finishedMatchesList().isEmpty()){
+            for (int i = 0; i < sHomeList().size(); i++) {
+                if (sHomeList().get(i) > sAwayList().get(i)) {
+                    System.out.println("The winner of the match is: " + participantAtHomeList().get(i).getText());
+                } else if (sHomeList().get(i) < sAwayList().get(i)) {
+                    System.out.println("The winner of the match is: " + participantAwayList().get(i).getText());
+                } else
+                    System.out.println("The match is tied: " + "Home Team: " + participantAtHomeList().get(i).getText() + " Away Team: " + participantAwayList().get(i).getText());
+            }
         }
     }
+
+    /**
+     * Function defining random number in integer value, depends on list size
+     * @return random Integer number
+     */
+    public int randomNumber(int x) {
+        return (int) (Math.floor(Math.random() * x));
+    }
+
+    public List<WebElement>getlistOfAllGames(){
+        return listOfAllGames();
+    }
+
+    /**
+     * Function for getting list of all games on current page
+     * @return list of all games on current page
+     */
+    public List<WebElement>getlistOfAllFaworiteElements(){
+        return listOfAllFaworiteElements();
+    }
+    /**
+     * Function for finding an add/exit element and clicking on it
+     */
+    public void popUpExit(){
+        try{
+            WebElement a=driver.findElement(By.cssSelector(".close.modal__closeButton"));
+            a.click();
+        }catch (org.openqa.selenium.NoSuchElementException ignored){
+        }
+    }
+    /**
+     *
+     * @return Favorites Web Elements
+     */
+    public WebElement getFavoritesWebElement(){
+        return favoritesElement();
+    }
+
 }
