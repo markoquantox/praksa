@@ -43,7 +43,6 @@ public class FlashscoreSportPage extends BaseClass {
     private List<WebElement> participantAwayList() {
         return driver.findElements(By.xpath(new WebElementLocatorFactory().getLocator(FlashscoreSportPage.class, "participantAwayList")));
     }
-    //1
     @WebElementLocator(webDesktop = "//div[contains(@class,'event__match--withRowLink')]")
     private List<WebElement> listOfAllGames() {
         return driver.findElements(By.xpath(new WebElementLocatorFactory().getLocator(FlashscoreSportPage.class, "listOfAllGames")));
@@ -56,6 +55,11 @@ public class FlashscoreSportPage extends BaseClass {
     private WebElement favoritesElement() {
         return driver.findElement(By.xpath(new WebElementLocatorFactory().getLocator(FlashscoreSportPage.class, "favoritesElement")));
     }
+    @WebElementLocator(webDesktop = "./div[contains(@class,'participant')]")
+    private List<WebElement> listOfParticipantsInElement() {
+        return driver.findElements(By.xpath(new WebElementLocatorFactory().getLocator(FlashscoreSportPage.class, "listOfParticipantsInElement")));
+    }
+
     //Functions
 
     /**
@@ -134,7 +138,7 @@ public class FlashscoreSportPage extends BaseClass {
         return (int) (Math.floor(Math.random() * x));
     }
 
-    public List<WebElement>getlistOfAllGames(){
+    public List<WebElement> getListOfAllGames(){
         return listOfAllGames();
     }
 
@@ -142,7 +146,7 @@ public class FlashscoreSportPage extends BaseClass {
      * Function for getting list of all games on current page
      * @return list of all games on current page
      */
-    public List<WebElement>getlistOfAllFaworiteElements(){
+    public List<WebElement> getListOfAllFavoriteElements(){
         return listOfAllFaworiteElements();
     }
     /**
@@ -161,6 +165,30 @@ public class FlashscoreSportPage extends BaseClass {
      */
     public WebElement getFavoritesWebElement(){
         return favoritesElement();
+    }
+
+    /**
+     *
+     * @return Int number for list size
+     */
+    public int getSizeOfTheList(List x){
+        return x.size();
+    }
+    /**
+     *
+     * @param x value we predetermine for Index
+     * @return List of elements that contain participant in a class of specific element
+     */
+
+    public List<WebElement> getListOfElementsForSpecificElement(Integer x){
+        return getListOfAllGames().get(x).findElements(By.xpath("./div[contains(@class,'participant')]"));
+    }
+    /**
+     * element
+     * @return Integer value of favorite element bubble attribute
+     */
+    public int getValueOfAttributesInFavoritesElement(){
+        return parseInt(getFavoritesWebElement().getAttribute("data-sport-count"));
     }
 
 }

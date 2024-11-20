@@ -3,7 +3,6 @@ package Tests;
 import org.example.Utils.BaseClass;
 import org.example.Utils.Groups;
 import org.example.Utils.NavigationPage;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.Reporter;
@@ -19,7 +18,7 @@ import static java.lang.Integer.parseInt;
 
 public class FlashscoreTest extends BaseClass {
 
-    //Parms
+    //Params
     private static final String URL_BASE = "https://www.flashscore.com/";
 
     @Test(groups = Groups.PC, priority = 1, description = "Clicking on random spots and checking status of finished games")
@@ -61,7 +60,10 @@ public class FlashscoreTest extends BaseClass {
 
 
 
-    @Test(groups = Groups.PC, priority = 2, description = "Clicking on random spots and checking status of finished games")
+    @Test(groups = Groups.PC, priority = 2, description = "Getting all sport pages that have more then 5 matches, " +
+            "adding random match to favorites, " +
+            "then compering if number of elements we added is the same, " +
+            "and all matches are there true the participants lists")
     public void secondTask() {
         //Objects
         NavigationPage navigationPage = new NavigationPage();
@@ -82,30 +84,29 @@ public class FlashscoreTest extends BaseClass {
         flashscoreComPage.clickOnMoreButton();
         waitImplicit(5000);
 
-        Reporter.log("Geting true the pages: ",true);
+        Reporter.log("Getting true the pages: ",true);
         List<String>participantsList=new ArrayList<>();
-        int rendomIndex=0;
+        int counter=0;
         for(String url:flashscoreComPage.sortedElements()){
             waitImplicit(5000);
             Reporter.log("Navigate to next url: "+url,true);
             navigationPage.navigateToPage(url);
             waitImplicit(3000);
-            int x=flashscoreSportPage.randomNumber(flashscoreSportPage.getlistOfAllGames().size());
-            scrollToElementCenter(flashscoreSportPage.getlistOfAllGames().get(x));
-            List<WebElement> f=flashscoreSportPage.getlistOfAllGames().get(x).findElements(By.xpath("./div[contains(@class,'participant')]"));
-            for(WebElement element:f) {
-                System.out.println(element.getText());
+            int randomIndex=flashscoreSportPage.randomNumber(flashscoreSportPage.getSizeOfTheList(flashscoreSportPage.getListOfAllGames()));
+            scrollToElementCenter(flashscoreSportPage.getListOfAllGames().get(randomIndex));
+            for(WebElement element:flashscoreSportPage.getListOfElementsForSpecificElement(randomIndex)) {
+                System.out.println("Participant added to the list: "+element.getText());
                 participantsList.add(element.getText());
             }
-            flashscoreSportPage.getlistOfAllFaworiteElements().get(x).click();
-            rendomIndex++;
+            flashscoreSportPage.getListOfAllFavoriteElements().get(randomIndex).click();
+            counter++;
         }
         Reporter.log("Exiting pop up",true);
         flashscoreSportPage.popUpExit();
         waitImplicit(3000);
 
         Reporter.log("Asserting if number of elements are the same line kin the favorite element/bubble",true);
-        Assert.assertEquals(rendomIndex, parseInt(flashscoreSportPage.getFavoritesWebElement().getAttribute("data-sport-count")),"The number of items in the bubble is not equal to the number of elements we added!!!");
+        Assert.assertEquals(counter,flashscoreSportPage.getValueOfAttributesInFavoritesElement(),"The number of items in the bubble is not equal to the number of elements we added!!!");
         waitImplicit(3000);
 
         Reporter.log("Clicking on favorites element",true);
