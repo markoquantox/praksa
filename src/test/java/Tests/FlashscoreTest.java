@@ -84,7 +84,7 @@ public class FlashscoreTest extends BaseClass {
         flashscoreComPage.clickOnMoreButton();
         waitImplicit(5000);
 
-        Reporter.log("Getting true the pages: ",true);
+        Reporter.log("Getting true the list of all pages that have more then 5 elements in it: ",true);
         List<String>participantsList=new ArrayList<>();
         int counter=0;
         for(String url:flashscoreComPage.sortedElements()){
@@ -95,7 +95,7 @@ public class FlashscoreTest extends BaseClass {
             int randomIndex=flashscoreSportPage.randomNumber(flashscoreSportPage.getSizeOfTheList(flashscoreSportPage.getListOfAllGames()));
             scrollToElementCenter(flashscoreSportPage.getListOfAllGames().get(randomIndex));
             for(WebElement element:flashscoreSportPage.getListOfElementsForSpecificElement(randomIndex)) {
-                System.out.println("Participant added to the list: "+element.getText());
+                Reporter.log("Participant added to the list: "+element.getText(),true);
                 participantsList.add(element.getText());
             }
             flashscoreSportPage.getListOfAllFavoriteElements().get(randomIndex).click();
@@ -105,7 +105,7 @@ public class FlashscoreTest extends BaseClass {
         flashscoreSportPage.popUpExit();
         waitImplicit(3000);
 
-        Reporter.log("Asserting if number of elements are the same line kin the favorite element/bubble",true);
+        Reporter.log("Asserting if number of elements are the same in favorites element/bubble compered to our counter",true);
         Assert.assertEquals(counter,flashscoreSportPage.getValueOfAttributesInFavoritesElement(),"The number of items in the bubble is not equal to the number of elements we added!!!");
         waitImplicit(3000);
 
@@ -113,7 +113,7 @@ public class FlashscoreTest extends BaseClass {
         flashscoreSportPage.getFavoritesWebElement().click();
         waitImplicit(3000);
 
-        Reporter.log("Asserting if names from added elements, are contained in a list of names on this page",true);
+        Reporter.log("Asserting if names from added elements list, are contained in a list of names on this page",true);
         Assert.assertTrue(flashscoreFavoritesPage.listAllParticipantsToString().containsAll(participantsList),"Lists don't match");
         waitImplicit(3000);
     }
