@@ -137,6 +137,7 @@ public class FlashscoreTest extends BaseClass {
         flashscoreComPage.clickAllDropDownMoreDisplayMatches();
         waitImplicit(5000);
 
+        Reporter.log("Storing all elements from the to the .csv file");
         flashscoreComPage.csvCreate(flashscoreComPage.listAllParticipantsToString());
         waitImplicit(5000);
     }

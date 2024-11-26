@@ -189,5 +189,4 @@ public class FlashscoreSportPage extends BaseClass {
     public int getValueOfAttributesInFavoritesElement(){
         return parseInt(getFavoritesWebElement().getAttribute("data-sport-count"));
     }
-
 }

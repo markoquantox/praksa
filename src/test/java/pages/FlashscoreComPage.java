@@ -45,6 +45,10 @@ public class FlashscoreComPage extends BaseClass {
     private List<WebElement> listAllParticipants() {
         return driver.findElements(By.xpath(new WebElementLocatorFactory().getLocator(FlashscoreFavoritesPage.class, "listAllParticipants")));
     }
+    @WebElementLocator(webDesktop = ".eventRowLink")
+    private List<WebElement> listEvents() {
+        return driver.findElements(By.cssSelector(new WebElementLocatorFactory().getLocator(FlashscoreFavoritesPage.class, "listEvents")));
+    }
 
     //Functions
 
@@ -132,11 +136,15 @@ public class FlashscoreComPage extends BaseClass {
             }
         } return a;
     }
+
+    /**
+     * Function that stores all elements from the list to .csv file
+     * @param strings-inputting some list of string elements to the function
+     * @throws IOException
+     */
     public void csvCreate(List strings) throws IOException {
-        //String csvFile=System.getProperty("user.dir")+"\\data\\file1.csv";
         File obj=new File("C:\\Users\\dzony\\OneDrive\\Radna površina\\Projects\\kloniranaverzija\\praksa\\data\\file1.csv");
         FileOutputStream font=new FileOutputStream(obj);
-        //FileWriter writer=new FileWriter(csvFile);
         for (Object x:strings){
             font.write((x +",\n").getBytes());
         }
