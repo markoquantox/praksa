@@ -39,15 +39,15 @@ public class FlashscoreComPage extends BaseClass {
 
     @WebElementLocator(webDesktop = "//span[contains(text(),'display matches')]")
     private List<WebElement> dropDownMoreDisplayMatches() {
-        return driver.findElements(By.xpath(new WebElementLocatorFactory().getLocator(FlashscoreSportPage.class, "dropDownMoreDisplayMatches")));
+        return driver.findElements(By.xpath(new WebElementLocatorFactory().getLocator(FlashscoreComPage.class, "dropDownMoreDisplayMatches")));
     }
     @WebElementLocator(webDesktop = "//div[contains(@class,'event__match--withRowLink')]/div[contains(@class,'participant')]")
     private List<WebElement> listAllParticipants() {
-        return driver.findElements(By.xpath(new WebElementLocatorFactory().getLocator(FlashscoreFavoritesPage.class, "listAllParticipants")));
+        return driver.findElements(By.xpath(new WebElementLocatorFactory().getLocator(FlashscoreComPage.class, "listAllParticipants")));
     }
     @WebElementLocator(webDesktop = ".eventRowLink")
     private List<WebElement> listEvents() {
-        return driver.findElements(By.cssSelector(new WebElementLocatorFactory().getLocator(FlashscoreFavoritesPage.class, "listEvents")));
+        return driver.findElements(By.cssSelector(new WebElementLocatorFactory().getLocator(FlashscoreComPage.class, "listEvents")));
     }
 
     //Functions
@@ -149,6 +149,13 @@ public class FlashscoreComPage extends BaseClass {
             font.write((x +",\n").getBytes());
         }
         font.close();
+    }
+
+    public List<String>listOfEventsUrls(){
+        List<String>a=new ArrayList<>();
+        for(WebElement element:listEvents()){
+            a.add(element.getAttribute("href"));
+        }return a;
     }
 }
 

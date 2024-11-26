@@ -118,7 +118,7 @@ public class FlashscoreTest extends BaseClass {
         waitImplicit(3000);
     }
 
-    @Test(groups = Groups.PC, priority = 3, description = "Clicking on random spots and checking status of finished games")
+    @Test(groups = Groups.PC, priority = 3, description = "Storing all element from the list to .csv file")
     public void thirdTask() throws IOException {
         //Objects
         NavigationPage navigationPage = new NavigationPage();
@@ -140,5 +140,32 @@ public class FlashscoreTest extends BaseClass {
         Reporter.log("Storing all elements from the to the .csv file");
         flashscoreComPage.csvCreate(flashscoreComPage.listAllParticipantsToString());
         waitImplicit(5000);
+    }
+
+    @Test(groups = Groups.PC, priority = 3, description = "Storing all element from the list to .csv file")
+    public void fourthTask() {
+        //Objects
+        NavigationPage navigationPage = new NavigationPage();
+        FlashscoreComPage flashscoreComPage = new FlashscoreComPage();
+
+        //Actions
+        Reporter.log("Navigate to https://www.flashscore.com/ page", true);
+        navigationPage.navigateToPage(URL_BASE);
+        waitImplicit(5000);
+
+        Reporter.log("Navigate to I Accept button on the banner and click on it", true);
+        flashscoreComPage.clickOnAcceptBanner();
+        waitImplicit(5000);
+
+        Reporter.log("Checking drop down elements and clicking on them if there are present", true);
+        flashscoreComPage.clickAllDropDownMoreDisplayMatches();
+        waitImplicit(5000);
+
+        for(String e:flashscoreComPage.listOfEventsUrls()){
+            navigationPage.navigateToPage(e);
+            waitImplicit(2000);
+        }
+
+
     }
 }
