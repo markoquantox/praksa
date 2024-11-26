@@ -22,8 +22,8 @@ public class FlashscoreFavoritesPage extends BaseClass {
     //Functions
 
     /**
-     * Function for geting atributes of the elements from the list
-     * @return List of string atributes
+     * Function for getting attributes of the elements from the list
+     * @return List of string attributes
      */
 
     public List<String>listAllParticipantsToString(){

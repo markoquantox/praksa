@@ -73,7 +73,6 @@ public class FlashscoreSportPage extends BaseClass {
         } else for (WebElement element : dropDownMoreDisplayMatches()) {
             scrollToElementCenter(element);
             element.click();
-            ;
         }
     }
 
