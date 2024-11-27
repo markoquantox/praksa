@@ -26,6 +26,10 @@ public class FlashscoreMatchesPage  extends BaseClass {
     private List<WebElement> teamPositionOnTheList() {
         return driver.findElements(By.xpath(new WebElementLocatorFactory().getLocator(FlashscoreMatchesPage.class, "teamPositionOnTheList")));
     }
+    @WebElementLocator(webDesktop = "//button[contains(text(),'Standings')]")
+    private WebElement standingsElement() {
+        return driver.findElement(By.xpath(new WebElementLocatorFactory().getLocator(FlashscoreMatchesPage.class, "standingsElement")));
+    }
 
 
     //Functions
@@ -45,9 +49,11 @@ public class FlashscoreMatchesPage  extends BaseClass {
     public List<String>listOfParticipantsAttributes(){
         List<String>x=new ArrayList<>();
         for(WebElement element :getlistOfParticipants()){
-            x.add(element.getText());
+            x.add(element.getAttribute("innerHTML"));
         }return x;
     }
+
+
 
     public List<WebElement>getTeamPositionOnTheList(){
         return teamPositionOnTheList();
@@ -60,4 +66,18 @@ public class FlashscoreMatchesPage  extends BaseClass {
         }return x;
     }
 
+    public WebElement getStandingsElement(){
+        return standingsElement();
+    }
+
+    public List<Integer>teamPositionOnTheListIn(){
+        List<Integer>x=new ArrayList<>();
+        WebElement a=driver.findElement(By.xpath("//a[contains(@class,'tableCellParticipant__name')][contains(text(),'"+listOfParticipantsAttributes().get(0)+"')]//ancestor::div[contains(@class,'ui-table__row')]/div/div[contains(@class,'tableCellRank')]"));
+        WebElement b=driver.findElement(By.xpath("//a[contains(@class,'tableCellParticipant__name')][contains(text(),'"+listOfParticipantsAttributes().get(1)+"')]//ancestor::div[contains(@class,'ui-table__row')]/div/div[contains(@class,'tableCellRank')]"));
+        x.add(Integer.parseInt(a.getText().replace(".","")));
+        x.add(Integer.parseInt(b.getText().replace(".","")));
+    return x;
+    }
+
 }
+////a[contains(@class,'tableCellParticipant__name')][contains(text(),'Ararat-Armenia')]//ancestor::div[contains(@class,'ui-table__row')]/div/div[contains(@class,'tableCellRank')]

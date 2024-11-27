@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.lang.Integer.parseInt;
 
 public class FlashscoreTest extends BaseClass {
 
@@ -165,9 +164,13 @@ public class FlashscoreTest extends BaseClass {
 
             for(String e:flashscoreComPage.listOfEventsUrls()){
                 navigationPage.navigateToPage(e);
+                flashscoreMatchesPage.listOfParticipantsAttributes();
+                waitImplicit(2000);
+                flashscoreMatchesPage.getStandingsElement().click();
+                waitImplicit(2000);
                 System.out.println(flashscoreMatchesPage.leagueElementAttribute()+" ~-> "
                         +flashscoreMatchesPage.listOfParticipantsAttributes().get(0)+" VS "+flashscoreMatchesPage.listOfParticipantsAttributes().get(1)+" -> "
-                        +flashscoreMatchesPage.teamPositionOnTheListInteger().get(0)+"th"+" VS "+flashscoreMatchesPage.teamPositionOnTheListInteger().get(1)+"th");
+                        +flashscoreMatchesPage.teamPositionOnTheListIn().get(0)+"th VS "+flashscoreMatchesPage.teamPositionOnTheListIn().get(1)+"th");
                 waitImplicit(2000);
             }
     }
