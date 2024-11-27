@@ -9,6 +9,7 @@ import org.testng.Reporter;
 import org.testng.annotations.Test;
 import pages.FlashscoreComPage;
 import pages.FlashscoreFavoritesPage;
+import pages.FlashscoreMatchesPage;
 import pages.FlashscoreSportPage;
 
 import java.io.IOException;
@@ -147,6 +148,7 @@ public class FlashscoreTest extends BaseClass {
         //Objects
         NavigationPage navigationPage = new NavigationPage();
         FlashscoreComPage flashscoreComPage = new FlashscoreComPage();
+        FlashscoreMatchesPage flashscoreMatchesPage=new FlashscoreMatchesPage();
 
         //Actions
         Reporter.log("Navigate to https://www.flashscore.com/ page", true);
@@ -161,11 +163,12 @@ public class FlashscoreTest extends BaseClass {
         flashscoreComPage.clickAllDropDownMoreDisplayMatches();
         waitImplicit(5000);
 
-        for(String e:flashscoreComPage.listOfEventsUrls()){
-            navigationPage.navigateToPage(e);
-            waitImplicit(2000);
-        }
-
-
+            for(String e:flashscoreComPage.listOfEventsUrls()){
+                navigationPage.navigateToPage(e);
+                System.out.println(flashscoreMatchesPage.leagueElementAttribute()+" ~-> "
+                        +flashscoreMatchesPage.listOfParticipantsAttributes().get(0)+" VS "+flashscoreMatchesPage.listOfParticipantsAttributes().get(1)+" -> "
+                        +flashscoreMatchesPage.teamPositionOnTheListInteger().get(0)+"th"+" VS "+flashscoreMatchesPage.teamPositionOnTheListInteger().get(1)+"th");
+                waitImplicit(2000);
+            }
     }
 }
