@@ -1,5 +1,6 @@
 package pages;
 
+import org.apache.commons.lang3.StringUtils;
 import org.example.Utils.BaseClass;
 import org.example.Utils.WebElementLocator;
 import org.example.Utils.WebElementLocatorFactory;
@@ -72,11 +73,18 @@ public class FlashscoreMatchesPage  extends BaseClass {
 
     public List<Integer>teamPositionOnTheListIn(){
         List<Integer>x=new ArrayList<>();
-        WebElement a=driver.findElement(By.xpath("//a[contains(@class,'tableCellParticipant__name')][contains(text(),'"+listOfParticipantsAttributes().get(0)+"')]//ancestor::div[contains(@class,'ui-table__row')]/div/div[contains(@class,'tableCellRank')]"));
-        WebElement b=driver.findElement(By.xpath("//a[contains(@class,'tableCellParticipant__name')][contains(text(),'"+listOfParticipantsAttributes().get(1)+"')]//ancestor::div[contains(@class,'ui-table__row')]/div/div[contains(@class,'tableCellRank')]"));
+        WebElement a=driver.findElement(By.xpath("//a[contains(@class,'tableCellParticipant__name')][contains(text(),'"+listAbbreviateOfParticipantsAttributes().get(0)+"')]//ancestor::div[contains(@class,'ui-table__row')]/div/div[contains(@class,'tableCellRank')]"));
+        WebElement b=driver.findElement(By.xpath("//a[contains(@class,'tableCellParticipant__name')][contains(text(),'"+listAbbreviateOfParticipantsAttributes().get(1)+"')]//ancestor::div[contains(@class,'ui-table__row')]/div/div[contains(@class,'tableCellRank')]"));
         x.add(Integer.parseInt(a.getText().replace(".","")));
         x.add(Integer.parseInt(b.getText().replace(".","")));
     return x;
+    }
+
+    public List<String>listAbbreviateOfParticipantsAttributes(){
+        List<String>x=new ArrayList<>();
+        for (String a:listOfParticipantsAttributes()){
+            x.add(StringUtils.left(a,4));
+        }return x;
     }
 
 }

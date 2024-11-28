@@ -166,12 +166,17 @@ public class FlashscoreTest extends BaseClass {
                 navigationPage.navigateToPage(e);
                 flashscoreMatchesPage.listOfParticipantsAttributes();
                 waitImplicit(2000);
-                flashscoreMatchesPage.getStandingsElement().click();
-                waitImplicit(2000);
-                System.out.println(flashscoreMatchesPage.leagueElementAttribute()+" ~-> "
-                        +flashscoreMatchesPage.listOfParticipantsAttributes().get(0)+" VS "+flashscoreMatchesPage.listOfParticipantsAttributes().get(1)+" -> "
-                        +flashscoreMatchesPage.teamPositionOnTheListIn().get(0)+"th VS "+flashscoreMatchesPage.teamPositionOnTheListIn().get(1)+"th");
-                waitImplicit(2000);
+                try{
+                    flashscoreMatchesPage.getStandingsElement().click();
+                    waitImplicit(2000);
+                    System.out.println(flashscoreMatchesPage.leagueElementAttribute()+" ~-> "
+                            +flashscoreMatchesPage.listOfParticipantsAttributes().get(0)+" VS "+flashscoreMatchesPage.listOfParticipantsAttributes().get(1)+" -> "
+                            +flashscoreMatchesPage.teamPositionOnTheListIn().get(0)+"th VS "+flashscoreMatchesPage.teamPositionOnTheListIn().get(1)+"th");
+                    waitImplicit(2000);
+                }catch (org.openqa.selenium.NoSuchElementException ignored){
+                    System.out.println(flashscoreMatchesPage.leagueElementAttribute()+" ~-> "
+                            +flashscoreMatchesPage.listOfParticipantsAttributes().get(0)+" VS "+flashscoreMatchesPage.listOfParticipantsAttributes().get(1)+" -> No Standings on the page found");
+                }
             }
     }
 }
