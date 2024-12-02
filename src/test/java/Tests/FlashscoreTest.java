@@ -142,7 +142,7 @@ public class FlashscoreTest extends BaseClass {
         waitImplicit(5000);
     }
 
-    @Test(groups = Groups.PC, priority = 3, description = "Storing all element from the list to .csv file")
+    @Test(groups = Groups.PC, priority = 4, description = "Storing all element from the list to .csv file")
     public void fourthTask() {
         //Objects
         NavigationPage navigationPage = new NavigationPage();
@@ -173,10 +173,15 @@ public class FlashscoreTest extends BaseClass {
                             +flashscoreMatchesPage.listOfParticipantsAttributes().get(0)+" VS "+flashscoreMatchesPage.listOfParticipantsAttributes().get(1)+" -> "
                             +flashscoreMatchesPage.teamPositionOnTheListIn().get(0)+"th VS "+flashscoreMatchesPage.teamPositionOnTheListIn().get(1)+"th");
                     waitImplicit(2000);
+                    flashscoreMatchesPage.getOddsElement().click();
+                    waitImplicit(2000);
+                    System.out.print(" -> BEST ODD FIRST WIN: "+flashscoreMatchesPage.listOfbestOddsforMatch().get(0)+" |BEST ODDS FOR TIE: "+flashscoreMatchesPage.listOfbestOddsforMatch().get(1)+" |BEST ODDS SECOND WIN: "+flashscoreMatchesPage.listOfbestOddsforMatch().get(2));
                 }catch (org.openqa.selenium.NoSuchElementException ignored){
                     System.out.println(flashscoreMatchesPage.leagueElementAttribute()+" ~-> "
                             +flashscoreMatchesPage.listOfParticipantsAttributes().get(0)+" VS "+flashscoreMatchesPage.listOfParticipantsAttributes().get(1)+" -> No Standings on the page found");
                 }
+
+
             }
     }
 }

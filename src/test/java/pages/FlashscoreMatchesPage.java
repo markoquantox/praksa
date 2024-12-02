@@ -31,6 +31,20 @@ public class FlashscoreMatchesPage  extends BaseClass {
     private WebElement standingsElement() {
         return driver.findElement(By.xpath(new WebElementLocatorFactory().getLocator(FlashscoreMatchesPage.class, "standingsElement")));
     }
+    @WebElementLocator(webDesktop = "//a[@class='oddsCell__odd oddsCell__highlight ']/span")
+    private List<WebElement> bestOddsforMatch() {
+        return driver.findElements(By.xpath(new WebElementLocatorFactory().getLocator(FlashscoreMatchesPage.class, "bestOddsforMatch")));
+    }
+    @WebElementLocator(webDesktop = "//a[@class='oddsCell__odd oddsCell__highlight ']//ancestor::div[@class='ui-table__row']//a[@class='prematchLink']")
+    private List<WebElement> bestOddsforMatchNameOfBettingHouse() {
+        return driver.findElements(By.xpath(new WebElementLocatorFactory().getLocator(FlashscoreMatchesPage.class, "bestOddsforMatchNameOfBettingHouse")));
+    }
+    @WebElementLocator(webDesktop = "//a[@href='#/odds-comparison']/button")
+    private WebElement oddsElement() {
+        return driver.findElement(By.xpath(new WebElementLocatorFactory().getLocator(FlashscoreMatchesPage.class, "oddsElement")));
+    }
+
+
 
 
     //Functions
@@ -85,6 +99,24 @@ public class FlashscoreMatchesPage  extends BaseClass {
         for (String a:listOfParticipantsAttributes()){
             x.add(StringUtils.left(a,4));
         }return x;
+    }
+
+    public List<String> listOfbestOddsforMatch(){
+        List<String>x=new ArrayList<>();
+        for (WebElement element:bestOddsforMatch()){
+            x.add(element.getText());
+        }return x;
+    }
+
+    public List<String> listOFBestOddsforMatchNameOfBettingHouse(){
+        List<String>x=new ArrayList<>();
+        for (WebElement element:bestOddsforMatchNameOfBettingHouse()){
+            x.add(element.getAttribute(""));
+        }return x;
+    }
+
+    public WebElement getOddsElement(){
+        return oddsElement();
     }
 
 }
